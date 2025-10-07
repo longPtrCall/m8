@@ -33,7 +33,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * * */
-#pragma once
+#ifndef __m8_h__
+#define __m8_h__
 
 #include <stdbool.h>
 #include <assert.h>
@@ -532,13 +533,15 @@ static int m8_link(const int objc, const char* const objv[]) {
   char* command = (char*)malloc(512 + objc * 256);
   // TODO: Support Windows.
   if (project_type == PROJECT_TYPE_STATIC_LIBRARY) {
-    sprintf(command, "%s r %s -o %s", ar, linker_arguments, __get_target_path());
-  } else sprintf(command, "%s %s -o %s", linker, linker_arguments, __get_target_path());
+    sprintf(command, "%s r -o %s", ar, __get_target_path());
+  } else sprintf(command, "%s -o %s", linker, __get_target_path());
   for (size_t index = 0; index < objc; index++) {
 
     strcat(command, " ");
     strcat(command, objv[index]);
   }
+  strcat(command, " ");
+  strcat(command, linker_arguments);
   printf("[I] Executing: %s" _endl, command);
   const int status = system(command);
   free(command);
@@ -643,3 +646,5 @@ static inline int __copy(const char* const source, const char* const destanation
   sprintf(buffer, "%s %s %s", copy, source, destanation);
   return system(buffer);
 }
+
+#endif
