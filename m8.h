@@ -52,6 +52,7 @@
   typedef HANDLE thread_t;
 
   #define __m8cc "cl /Fe:%s m8.c"
+	#define __cc "cl"
   #define _executable ".exe"
   #define _shared ".dll"
   #define _static ".lib"
@@ -69,6 +70,7 @@
   typedef pthread_t thread_t;
 
   #define __m8cc "cc -lpthread -o %s m8.c"
+	#define __cc "cc"
   #define _executable ""
   #define _shared ".so"
   #define _static ".a"
@@ -91,8 +93,8 @@
 #define enumerate(array) countof(array), array
 
 static char* source_dir = "src", *build_dir = "build", *dist_dir = "dist";
-static char* compiler = "cc -c", *compiler_arguments = "-O2";
-static char* linker = "ld", *linker_arguments = "";
+static char* compiler = __cc " -c", *compiler_arguments = "-O2";
+static char* linker = __cc, *linker_arguments = "";
 static char* output = "output"_executable;
 static char* install_prefix = "/usr";
 static char* objects = "o";
