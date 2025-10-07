@@ -8,7 +8,7 @@ Copy this header (m8.h) to your repository root. Create a C file, m8.c and paste
 ```C
 #include "m8.h"
 
-int main(const int argc, char* const argv[]) {
+int main(const int argc, const char* const argv[]) {
 
     const char* const sources[] = { "main.c" };
     output = "hello"_executable;
